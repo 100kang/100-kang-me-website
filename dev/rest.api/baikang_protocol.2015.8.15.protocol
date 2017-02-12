@@ -1,0 +1,617 @@
+为举例方便
+症状ID首字符为1
+疾病ID首字符为2
+药品ID首字符为3
+医生ID首字符为4
+科室ID首字符为5
+医院ID首字符为6
+医生互动首字符为7
+评论首字符为8
+
+
+
+0. 注册
+POST http://www.baikang.com/api/register
+
+request
+{
+	"email":"daming@baikang.com",
+	"password": "password",
+	"gender": "m",
+	"age":33,
+	"height": 179,
+	"weight": 83,
+	"pathography": "食道反流，尿路结石"
+	"deviceId":"id"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"token":"token"
+}
+
+1. 登录
+POST http://www.baikang.com/api/login
+
+request
+{
+	"email":"daming@baikang.com",
+	"os":"ios8.3",
+	"password": "password",
+	"deviceId":"id",
+	"lon":139.212313,
+	"lat":42.922
+}
+
+response
+{
+	"ret_code": 0,
+	"exception": "",
+	"token":"token"
+}
+
+
+
+2. 搜索
+type 
+1) symptom
+2）doctor
+3）disease
+4）medicine
+5）hospital
+6) comment
+例子
+GET http://www.baikang.com/api/symptom
+{
+	"keyword"="头疼,恶心",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"relatedSymptomList":[
+		{"name"="失眠","id=10001"},
+		{"name"="后脑疼痛","id=10002"},
+		{"name"="恶心","id=10003"}
+	]
+	"possibleDiseaseList":[
+		{"name"="颈椎病","id=20001","qa_num"=359},
+		{"name"="神经衰弱","id=20002","qa_num"=102},
+		{"name"="高血压","id=20003","qa_num"=10}
+	]		
+}
+
+GET http://www.baikang.com/api/doctor?keyword=栗震亚&[token|device_id]=token
+{
+	"keyword"="栗震亚",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"doctorList":[
+		{
+			"id":"40001",
+			"name":"栗震亚",
+			"title":"主任医师",
+			"good_at":"牙周疾病",
+			"hospital": {
+				"id": "60002",
+				"name":"北京协和医院",
+			}
+		},
+		{
+			"id":"40321",
+			"name":"栗震亚",
+			"title":"主任医师",
+			"good_at":"心脑血管疾病",
+			"hospital": {
+				"id": "60322",
+				"name":"上海协和医院",
+			}
+		}
+	]
+}
+
+GET http://www.baikang.com/api/disease
+{
+	"keyword"="结石",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"diseaseList":[
+		{"id":"20132",
+		 "name":"尿路结石",
+		 "summary":"内科",
+		 "comments": 3321
+		},
+		{"id":"20142",
+		 "name":"胆结石",
+		 "summary":"内科",
+		 "comments": 1321
+		},
+		{"id":"20144",
+		 "name":"肾结石",
+		 "summary":"内科",
+		 "comments": 421
+		},
+	]
+}
+
+GET http://www.baikang.com/api/medicine
+{
+	"keyword"="胃泰",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"medicineList":[
+		{"id":"30132",
+		 "name":"三九胃泰",
+		 "category":"OTC",
+		 "summary":"功效"
+		},
+		{"id":"30134",
+		 "name":"同仁堂胃泰",
+		 "category":"OTC",
+		 "summary":"功效"
+		}
+	]
+}
+
+GET http://www.baikang.com/api/hospital
+{
+	"keyword"="协和",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"hospital_list":[
+		{
+		 "id":"60002",
+		 "name":"北京协和医院",
+		 "city":"北京",
+		 "rank":"三级甲等",
+		 "summary":"北京协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+		},
+		{
+		 "id":"69230",
+		 "name":"西安协和医院",
+		 "city":"陕西 西安",
+		 "rank":"三级乙等",
+		 "summary":"西安协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+		}
+	]
+}
+
+GET http://www.baikang.com/api/comment
+{
+	"keyword"="睡不着",
+	"token"="77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"device_id"="devid"
+}
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"commentList":[
+		{"content":"睡觉前2个小时泡脚我觉得管用，睡前不要做运动","id":"="80231"},
+		{"content":"失眠是心理问题，想的太多就容易<h2>睡不着</h2>","id":"83301"}
+	]
+}
+
+3. 医生详情
+//40001标识医生ID
+GET http://www.baikang.com/api/doctor/40001
+{
+	"lat":37.222,
+	"lon":138.422,
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"doctor": {
+		"name":"栗震亚",
+		"title":"主任医师",
+		"faculty": {
+			"id":"51231",
+			"name":"牙科"
+		},
+		"goodAt":"牙周疾病",
+		"schedule":"每周二上午，周四下午",
+		"hospital": {
+			"id":"60001",
+			"name":"北京协和医院",
+			"summary":"北京协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+		}
+		"distance":"2.8公里",
+		"score":"98%",
+		"profile":"栗震亚，男，1981年华西医科大学口腔医学院毕业，硕士。国际牙医师学院院士，甘肃省优秀专家。主任医师，教授，兰州大学硕士研究生导师，"
+	}
+}
+
+//60001标识医院ID
+GET http://www.baikang.com/api/hospital/60001
+{
+	"lat":37.222,
+	"lon":138.422,
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"hostipal": {
+		"id": "60001",
+		"hospital":"北京协和医院",
+		"rank":"三级甲等",
+		"summary":"北京协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+	}
+}
+
+GET http://www.baikang.com/api/doctor/40001/comments
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+//40001标识大夫ID
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list": [
+		{"id":"712311", "user":"唐尼小宝贝"， "timestamp":"11:53 AM", "content":"胃疼整晚睡不好"}，
+		{"id":"712312", "user":"栗震亚医生"， "timestamp":"11:21 AM", "content":"建议：睡觉前2哥小时泡脚我觉得管用，睡前不要做运动"}，
+		{"id":"712313", "user":"谁说忍着无敌"， "timestamp":"09:48 AM", "content":"失眠是心理问题，想的太多就容易睡不着"}
+	]
+}
+
+GET http://www.baikang.com/api/doctor/40001/QA
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+//40001标识大夫ID
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list":
+	[
+		{"title"="睡觉前2个小时泡脚我觉得管用，睡前不要做运动","id=70001"},
+		{"title"="失眠是心理问题，想的太多就容易睡不着","id=70001"}
+	]
+}
+
+4. 疾病详情
+GET http://www.baikang.com/api/disease/20001
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"disease": {
+		"id":"20001",
+		"name":"失眠",
+		"description":"失眠是指无法入睡或无法保持睡眠状态，导致睡眠不足，又称入睡和维持睡眠障碍(DIMS)，为各种原因引起",
+		"treatment":"酸枣是中药，而酸枣仁更是以助眠闻名。若想用酸枣仁来对方法很简单，只要拿它煮汤或泡茶喝就行了。失眠较多的，常喝酸枣仁茶，还",
+	}
+
+}
+
+GET http://www.baikang.com/api/disease/20001/medicine_recommend
+{
+	"age":33,
+	"gender":"m",
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list":
+	[
+		{"name":"马来酸曲美布汀","id":"30001"},
+		{"name":"马来酸曲美布汀","id":"30001"},
+		{"name":"马来酸曲美布汀","id":"30001"},
+		{"name":"马来酸曲美布汀","id":"30001"}
+	]
+}
+
+GET http://www.baikang.com/api/disease/20001/doctor_nearby
+{
+	"lat":37.55,
+	"lon":113.755,
+	"age":33,
+	"gender":"m",
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"doctorList":
+	[
+		{
+			"name":"栗震亚",
+			"title":"主任医师",
+			"faculty": {
+				"id":"51231",
+				"name":"牙科"
+			},
+			"goodAt":"牙周疾病",
+			"schedule":"每周二上午，周四下午",
+			"hospital": {
+				"id":"60001",
+				"name":"北京协和医院",
+				"summary":"北京协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+			}
+			"distance":"2.8公里",
+			"score":"98%",
+			"profile":"栗震亚，男，1981年华西医科大学口腔医学院毕业，硕士。国际牙医师学院院士，甘肃省优秀专家。主任医师，教授，兰州大学硕士研究生导师，"
+		},
+		{
+			"name":"栗震亚",
+			"title":"主任医师",
+			"faculty": {
+				"id":"51231",
+				"name":"牙科"
+			},
+			"goodAt":"牙周疾病",
+			"schedule":"每周二上午，周四下午",
+			"hospital": {
+				"id":"60001",
+				"name":"北京协和医院",
+				"summary":"北京协和医院是一所位于北京市东城区，集医疗、科研、教学为一体的大型综合医院。它隶属于中国协和医科大学"
+			}
+			"distance":"2.8公里",
+			"score":"98%",
+			"profile":"栗震亚，男，1981年华西医科大学口腔医学院毕业，硕士。国际牙医师学院院士，甘肃省优秀专家。主任医师，教授，兰州大学硕士研究生导师，"
+		}
+	]
+}
+
+GET http://www.baikang.com/api/disease/20001/QA
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list":
+	[
+		{"title"="睡觉前2个小时泡脚我觉得管用，睡前不要做运动","id=50001"},
+		{"title"="失眠是心理问题，想的太多就容易睡不着","id=50001"}
+	]
+}
+
+
+5. 药品详情
+
+GET http://www.baikang.com/api/medicine/30012
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"medicine": {
+		"id":"30012",
+		"name":"丽珠得乐（枸橼酸铋钾胶囊）",
+		"category":"药品类型OTC甲类双跨、基本药物、医保工伤用药",
+		"treatment":"胃溃疡、十二指肠溃疡及红斑渗出性胃炎、糜烂性胃炎。",
+		"usage":"口服。每日4次，每次0.3g，前3次于三餐饭前半小时，第4次于睡前用温水送服，忌用含碳酸饮料(如啤酒)。服药前、后半小时不要喝牛奶或服用抗酸剂和其他碱性药物。疗程4—8周，然后停用含铋药物4—8周，如有必要可再继续服用4—8周。",
+		"attention":"1下列情况需慎用：①肝功能不全者。②儿童。③急性胃黏膜病变时。
+					2如服用过量或发生严重不良反应时应立即就医。
+					3服本品期间不得服用其他铋制剂，且不宜大剂量长期服用，长期使用本药的患者应注意体内铋的蓄积。
+					4应用于杀灭幽门螺杆菌时，需与两种抗生素合用，具体方案应遵医嘱。
+					5治疗期间不应饮用含酒精饮料或虑碳酸的饮料，少饮咖啡、茶等。
+					6大剂量服用本药会导致可逆性肾病，并于10日内发作。
+					7用药过量的治疗：应急救，洗胃、重复服用活性炭悬浮液及轻泻药，监测血、尿中铋浓度及肾功能，对症治疗。当血铋浓度过高并伴有肾功能絮乱时，可用二巯西二酸或二巯丙醇的络合疗法治疗，严重肾衰竭者需进行血液透析。
+					8药物不要放在孩童可触及的地方。
+					9废弃药品包装不应随意丢弃。",
+		"contraindication":"1.对本药过敏者禁用。2.孕妇及哺乳期妇女禁用。3.严重肾功能不全者禁用。",
+		"untowardEffect":"在常规剂量下和服用周期内本药比较安全，但也可能出现一般不良反应：
+							(1)消化系统：服用本药期间，口中可能带有氨味，并可使舌苔及大便呈灰黑色，易与黑粪症状混淆；个别病人服用时可出现恶心、呕吐、食欲减退、腹泻、便秘等症状。上述表现停药后可自行消失。
+							(2)神经系统：少数病人可出现轻微头痛、头晕、失眠等，但可耐受。
+							(3)其他：个别病人可出现皮疹。
+
+							长期大剂量服用有可能产生以下不良反应：
+							（1）当血浓度大于l00ng/ml时，有可能导致铋性脑病；
+							(2)泌尿系统；本药长期服用可能引起肾脏毒性；
+							(3)骨骼、肌肉：骨骼的不良反应常发生在不同部位，与骨内铋浓度过高有关，较常见的是与铋性脑病相关的骨关节病，常以单侧或双肩疼痛为先兆症状。"
+	}
+
+}
+
+
+6. 评论详情
+GET http://www.baikang.com/api/comment/80231
+{
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"comment": {
+		"id":"80231",
+		"title":"失眠",
+		"user":"李振宇医生",
+		"timestamp": "11:53 AM",
+		"content":"失眠是指无法入睡或无法保持睡眠状态，导致睡眠不足，又称入睡和维持睡眠障碍(DIMS)，为各种原因引起"
+	}
+
+}
+
+
+7. BodyChecker
+
+身体部位列表
+
+身体前面:   0
+
+头部       01	
+    头顶   011 q_toubu_touding
+    额头   012 q_toubu_etou
+    眼睛   013 q_toubu_yanjing
+    鼻子   014 q_toubu_bizi
+    脸     015 q_toubu_lian
+    嘴     016 q_toubu_zui
+    下巴   017 q_toubu_xiaba
+    耳朵   018 q_toubu_erduo
+
+脖子(前面)       02
+    脖子(前面)   021 q_bozi_boziqian
+前胸            03 
+    胸部        031 q_qianxiong_xiongbu
+    胸骨        032 q_qianxiong_xionggu
+	乳房		033 q_qianxiong_rufang
+    
+腹部            04
+    上腹部      041 q_fubu_shangfubu
+    下腹部      042 q_fubu_xiafubu
+骨盆            05
+    髋部        051 q_gupeng_kuanbu
+    腹股沟      052 q_gupeng_fugugou
+    骨盆        053 q_gupeng_gupeng
+    男性生殖器      054 q_gupeng_nanxinshengzhiqi
+	女性生殖器      054 q_gupeng_nvxingshengzhiqi
+胳膊            06
+    肩膀        061 q_gebo_jianbang
+    腋窝        062 q_gebo_yewo
+    二头肌(上臂) 063 q_gebo_shangbi
+    肘          064 q_gebo_zhou
+    前臂        065 q_gebo_qianbi
+    手腕        066 q_gebo_shouwan
+    手掌        067 q_gebo_shouzhang
+    手指        068 q_gebo_shouzhi
+腿              07
+    大腿        071 q_tui_datui
+    膝盖        072 q_tui_xigai
+    小腿        073 q_tui_xiaotui
+    脚踝        074 q_tui_jiaohuai
+    脚背        075 q_tui_jiaobei <--暂时没有数据
+    脚趾        076 q_tui_jiaozhi
+--------------------------    
+身体后面:             1
+头部                 11
+    头顶             111  h_toubu_touding
+	后脑勺           112  h_toubu_hounaoshao
+脖子(后面)            12
+    脖子(后面)        121  h_bozi_bozihoumian     
+后背                 13 
+    背部             131 h_houbei_beibu
+    脊柱             132 h_houbei_jizhu 
+    
+臀部                 14  
+    臀部             141  h_tunbu_tunbu
+    髋部             142 h_tunbu_kuanbu
+胳膊                 15   
+    肩膀             151 h_gebo_jianbang
+    二头肌(上臂)      152 h_gebo_shangbi
+    肘               153 h_gebo_zhou
+    前臂             154 h_gebo_qianbi
+    手腕             155 h_gebo_shouwan
+    手掌             156 h_gebo_shouzhang
+    手指             157 h_gebo_shouzhi
+腿                   16
+    腿后腱           161 h_tui_tuihoujian
+    小腿肚           162  h_tui_xiaotuidu
+    脚踝             163 h_tui_jiaohuai
+    脚后跟           164 h_tui_jiaohougeng
+    脚趾             165 h_tui_jiaozhi
+
+GET http://www.baikang.com/api/body/021/symptom
+{
+	"age":33,
+	"gender":"m",
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+//021标识身体部位
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list": [
+		{"symptom"="脖子酸痛", "id"=10009},
+		{"symptom"="颈椎痛","id"=10008},
+		{"symptom"="脖子僵硬","id"=10010}
+	]
+}
+
+GET http://www.baikang.com/api/symptom2disease
+{
+	"symptomIds":["10008", "10009"],
+	"age":33,
+	"gender":"m",
+	"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+	"deviceId":"devid"
+}
+
+response
+{
+	"retCode": 0,
+	"exception": "",
+	"list":[
+		{"name"="颈椎病","id=20001","num"=359},
+		{"name"="神经衰弱","id=20002","num"=102},
+		{"name"="高血压","id=20003","num"=10}
+	]	
+}
+
+
+
+
+
+5. profile
+

@@ -1,0 +1,43 @@
+#!/bin/sh
+host=192.168.0.39
+port=9090
+#register
+curl -XPOST  -H "Content-Type: application/json" -d '{"email":"daming@baikang.com","password": "password","gender": "m","age":33,"height": 179,"weight": 83,"pathography": "食道反流，尿路结石","deviceId":"devid"}' http://${host}:${port}/api/register
+#login without token
+curl -XPOST  -H "Content-Type: application/json" -d '{"email":"daming@baikang.com","password": "password","os": "IOS8.1","deviceId":"devid","lon":128.222,"lat":43.777}' http://${host}:${port}/api/login
+#search hospital
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"协和医院","deviceId": "devid"}' http://${host}:${port}/api/hospital
+#search doctor
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"赵钱孙","deviceId": "devid"}' http://${host}:${port}/api/doctor
+#search disease
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"结石","deviceId": "devid"}' http://${host}:${port}/api/disease
+#search medicine
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"胃泰","deviceId": "devid"}' http://${host}:${port}/api/medicine
+#search symptom
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"头晕","deviceId": "devid"}' http://${host}:${port}/api/symptom
+#search comment
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"睡不着","deviceId": "devid"}' http://${host}:${port}/api/comment
+#get hospital
+curl -XPOST -H "Content-Type: application/json" -d '{"lat":37.222,"lon":138.422,"deviceId":"devid"}'  http://${host}:${port}/api/hospital/43438774-7875-4ab6-8f98-3341a523a6df
+#get doctor details
+curl -XPOST  -H "Content-Type: application/json" -d '{"lat":37.222,"lon":138.422,"deviceId":"devid"}'  http://${host}:${port}/api/doctor/d851470c-44f7-41f4-8fa7-af22db556c26
+#get doctor's comment
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}' http://${host}:${port}/api/doctor/7d3b4370-473f-49f7-a5ef-0a66b7fb5b1f/comments
+#get doctor's QA
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}' http://${host}:${port}/api/doctor/d851470c-44f7-41f4-8fa7-af22db556c26/QA
+#get disease's details
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}'  http://${host}:${port}/api/disease/f2e38c4b-3c80-4786-8d98-ae2fc712f3f7
+#get recommended medicine for disease
+curl -XPOST -H "Content-Type: application/json" -d '{"age":33,"gender":"m","deviceId":"devid"}' http://${host}:${port}/api/disease/0988c32d-5355-4e2b-afe7-fd70195de87a/medicine_recommend 
+#get doctor nearby for disease
+curl -XPOST -H "Content-Type: application/json" -d '{"lat": 39.9117,"lon":116.283,"age":33,"gender":"m","scope":1, "deviceId":"devid"}' http://${host}:${port}/api/disease/0988c32d-5355-4e2b-afe7-fd70195de87a/doctor_nearby
+#get comments for disease with token
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}' http://${host}:${port}/api/disease/0988c32d-5355-4e2b-afe7-fd70195de87a/QA
+#get medicine details with token
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}' http://${host}:${port}/api/medicine/7b990d3c-d8cd-4660-a69e-880c1e0bd2f6
+#get comment details with token
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}' http://${host}:${port}/api/comment/c3237f4c-a8cc-4d14-9e60-4e52bef46b09
+#get symptoms by body id with token
+curl -XPOST -H "Content-Type: application/json" -d '{"age":33,"gender":"m","deviceId":"devid"}' http://${host}:${port}/api/body/021/symptom
+#get diseases by symptom ids with token
+curl -XPOST -H "Content-Type: application/json" -d '{"symptomNames":["头颈分离感","咽喉疼痛"],"deviceId":"devid"}' http://${host}:${port}/api/symptom2disease

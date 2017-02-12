@@ -1,0 +1,269 @@
+//normal register
+curl -XPOST  -H "Content-Type: application/json" -d '{
+"email":"daming@baikang.com",
+"password": "password",
+"gender": "m",
+"age":33,
+"height": 179,
+"weight": 83,
+"pathography": "食道反流，尿路结石",
+"deviceId":"devid"
+}' http://localhost:8080/api/register
+
+//logon with token
+curl -XPOST  -H "Content-Type: application/json" -d '{
+"token":"f363acd7-5043-4907-948f-0f201ba216af",
+"email":"daming@baikang.com",
+"password": "password",
+"os": "IOS8.1",
+"deviceId":"devid",
+"lon":128.222,
+"lat":43.777
+}' http://localhost:8080/api/logon
+
+//logon without token
+curl -XPOST  -H "Content-Type: application/json" -d '{
+"email":"daming@baikang.com",
+"password": "password",
+"os": "IOS8.1",
+"deviceId":"devid",
+"lon":128.222,
+"lat":43.777
+}' http://localhost:8080/api/logon
+
+//search symptom by keywors with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"头疼 恶心",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/symptom
+
+//search symptom by keywors without token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"test",
+"deviceId": "devid"
+}' http://localhost:8080/api/symptom
+
+//search doctor by keywords with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"栗震亚",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/doctor
+
+//search doctor by keywors without token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"栗震亚",
+"deviceId": "devid"
+}' http://localhost:8080/api/doctor
+
+//search disease by keywords with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"结石",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/disease
+
+//search disease by keywors without token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"结石",
+"deviceId": "devid"
+}' http://localhost:8080/api/disease
+
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}'  http://115.29.248.226:9090/api/disease/f2e38c4b-3c80-4786-8d98-ae2fc712f3f7
+
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"结石",
+"deviceId": "devid"
+}' http://115.29.248.226:9090/api/disease
+
+curl -XPOST  -H "Content-Type: application/json" -d '{"keyword":"结石","deviceId": "devid"}' http://www.datains.com:9090/api/disease
+
+56199015-5b75-11e5-b283-e03f49b94c9b
+
+curl -XPOST -H "Content-Type: application/json" -d '{"deviceId":"devid"}'  http://115.29.248.226:9090/api/disease/56199015-5b75-11e5-b283-e03f49b94c9b
+
+//search medicine by keywords with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"胃泰",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/medicine
+
+//search medicine by keywors without token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"胃泰",
+"deviceId": "devid"
+}' http://localhost:8080/api/medicine
+
+//search hospital by keywords with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"胃泰",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/hospital
+
+//search hospital by keywors without token
+curl -XPOST  -H "Content-Type: application/json" -d '{
+"keyword":"鄂尔多斯",
+"deviceId": "devid"
+}' http://www.datains.com:9090/api/hospital
+
+//search comment by keywords with token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"睡不着",
+"token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+"deviceId": "devid"
+}' http://localhost:8080/api/comment
+
+//search comment by keyword without token
+curl -XGET  -H "Content-Type: application/json" -d '{
+"keyword":"睡不着",
+"deviceId": "devid"
+}' http://localhost:8080/api/comment
+
+
+//get doctor details with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "lat":37.222,
+  "lon":138.422,
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}'  http://localhost:8080/api/doctor/40001
+
+//get doctor details without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "lat":37.222,
+  "lon":138.422,
+  "deviceId":"devid"
+}'  http://localhost:8080/api/doctor/40001
+
+
+//get hospital details with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "lat":37.222,
+  "lon":138.422,
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}'  http://localhost:8080/api/hospital/60001
+
+//get hospital details without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "lat":37.222,
+  "lon":138.422,
+  "deviceId":"devid"
+}'  http://localhost:8080/api/hospital/60001
+
+//get comment with doctor id with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/doctor/40001/comments
+
+//get comment with doctor id without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "deviceId":"devid"
+}' http://localhost:8080/api/doctor/40001/comments
+
+
+//get comment with doctor id with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/doctor/40001/QA
+
+//get comment with doctor id without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "deviceId":"devid"
+}' http://localhost:8080/api/doctor/40001/QA
+
+
+//get disease details with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}'  http://localhost:8080/api/disease/20001
+
+//get disease details without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "deviceId":"devid"
+}'  http://localhost:8080/api/disease/20001
+
+//get recommended medicine for disease with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "age":33,
+  "gender":"m",
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/disease/20001/medicine_recommend 
+
+//get recommended medicine for disease without token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "age":33,
+  "gender":"m",
+  "deviceId":"devid"
+}' http://localhost:8080/api/disease/20001/medicine_recommend 
+
+
+//get doctor nearby for disease with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "lat":37.55,
+  "lon":113.755,
+  "age":33,
+  "gender":"m",
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/disease/20001/doctor_nearby
+
+//get comments for disease with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/disease/20001/QA
+
+//get medicine details with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/medicine/30012
+
+//get comment details with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/comment/80231
+
+//get symptoms by body id with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "age":33,
+  "gender":"m",
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/body/021/symptom
+
+
+//get diseases by symptom ids with token
+curl -XGET -H "Content-Type: application/json" -d '
+{
+  "symptomIds":["10008", "10009"],
+  "token":"77ca78b7-b74f-43bf-8432-47c84d51d27d",
+  "deviceId":"devid"
+}' http://localhost:8080/api/symptom2disease
+
